@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Ilay_Semester1_Fly_Game.sln"
+    "dotnet.defaultSolution": "Piggy_Platformer_Game.sln"
 }
