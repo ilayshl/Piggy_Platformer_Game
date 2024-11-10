@@ -5,9 +5,13 @@ using UnityEngine;
 
 public class SizeChanger : MonoBehaviour
 {
+    public float sizeMultiplier;
+
+    [SerializeField] float playerSizeChange = 0.1f;
     Rigidbody2D rb;
     PlayerMovement player;
     int pickupLimiter = 0; //-5 to 5
+    
 
     void Start()
     {
@@ -15,26 +19,30 @@ public class SizeChanger : MonoBehaviour
         player = rb.GetComponent<PlayerMovement>();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        if(collision.gameObject.CompareTag("Increase")) {
-            if(pickupLimiter<5){
-            Debug.Log("increase");
-            //player.sizeMultiplier += 0.5
-            collision.gameObject.IsDestroyed();
-                Debug.Log(pickupLimiter);
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if(collision.gameObject.CompareTag("Grow")) {
+            Destroy(collision.gameObject);
+            if(pickupLimiter<5) {
+                pickupLimiter++;
+                Debug.Log("increase "+pickupLimiter);
+                ChangeSize(playerSizeChange);
             } else {
                 Debug.Log("can't grow more");
             }
-        }
-        else if(collision.gameObject.CompareTag("Reduce")) {
-            if(pickupLimiter>-5){
-            Debug.Log("reduce");
-            //player.sizeMultiplier -= 0.5
-            collision.gameObject.IsDestroyed();
-                Debug.Log(pickupLimiter);
+        } else if(collision.gameObject.CompareTag("Shrink")) {
+            Destroy(collision.gameObject);
+            if(pickupLimiter>-5) {
+                pickupLimiter--;
+                Debug.Log("reduce "+pickupLimiter);
+                ChangeSize(-playerSizeChange);
             } else {
                 Debug.Log("can't shrink more");
             }
         }
     }
+
+    void ChangeSize(float multiplier) {
+        gameObject.transform.localScale+=new Vector3(multiplier, multiplier, multiplier);
+    }
+
 }

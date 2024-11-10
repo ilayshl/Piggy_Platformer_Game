@@ -37,8 +37,11 @@ public class PlayerMovement : MonoBehaviour
     rb.AddForce(new Vector2(-verticalForce, horizontalForce), ForceMode2D.Impulse);
     onFloor=false;
     sr.flipX = false;
+                sr.color=Color.yellow;
                 extraJump--;
-      }
+            }if(extraJump==0){
+                sr.color = Color.red;
+            }
  }
     if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)){
       if(extraJump>0) {
@@ -47,18 +50,24 @@ public class PlayerMovement : MonoBehaviour
     rb.AddForce(sideBoost, ForceMode2D.Impulse);
     onFloor=false;
     sr.flipX = true;
+                sr.color=Color.yellow;
                 extraJump--;
+            } if(extraJump==0) {
+                sr.color=Color.red;
             }
- }
+        }
     if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)){
       if(extraJump>0) {
         if(onFloor==false) rb.velocity=rb.velocity/2;
     Debug.Log("jump "+extraJump);
     rb.AddForce(jumpBoost, ForceMode2D.Impulse);
     onFloor=false;
+                sr.color=Color.yellow;
                 extraJump--;
+            }if(extraJump==0) {
+                sr.color=Color.red;
             }
- }
+        }
     if(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)){
     Debug.Log("go down "+extraJump);
  }
@@ -68,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
       if(other.gameObject.CompareTag("Ground") && onFloor==false){
          onFloor=true;
          extraJump=extraJumpValue;
+            sr.color = Color.white;
       }
    }
 
