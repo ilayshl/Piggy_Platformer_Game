@@ -26,6 +26,7 @@ public class SizeChanger : MonoBehaviour
                 pickupLimiter++;
                 Debug.Log("increase "+pickupLimiter);
                 ChangeSize(playerSizeChange);
+                player.boostMultiplier/=1.1f;
             } else {
                 Debug.Log("can't grow more");
             }
@@ -35,6 +36,7 @@ public class SizeChanger : MonoBehaviour
                 pickupLimiter--;
                 Debug.Log("reduce "+pickupLimiter);
                 ChangeSize(-playerSizeChange);
+                player.boostMultiplier*=1.1f;
             } else {
                 Debug.Log("can't shrink more");
             }

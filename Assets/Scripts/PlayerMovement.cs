@@ -5,13 +5,13 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public bool onFloor;
-    public float sizeMultiplier;
+    public float boostMultiplier=1;
     public int extraJumpValue;
 
     [SerializeField] int moveSpeed = 10;
-    [SerializeField] float verticalForce = 20;
-    [SerializeField] float horizontalForce = 38;
-    [SerializeField] float jumpForce = 40;
+    [SerializeField] float verticalForce = 25;
+    [SerializeField] float horizontalForce = 30;
+    [SerializeField] float jumpForce = 50;
     Rigidbody2D rb;
     SpriteRenderer sr;
     Vector2 sideBoost;
@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     {
        rb = gameObject.GetComponent<Rigidbody2D>();
        sr = gameObject.GetComponent<SpriteRenderer>();
-       sideBoost = new Vector2(verticalForce, horizontalForce);
+       sideBoost = new Vector2(horizontalForce, verticalForce);
        jumpBoost = new Vector2(0, jumpForce);
         extraJump=extraJumpValue;
     }
@@ -33,8 +33,7 @@ public class PlayerMovement : MonoBehaviour
     if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)){
       if(extraJump>0){
         if(onFloor==false) rb.velocity=rb.velocity/2;
-    Debug.Log("go left "+extraJump);
-    rb.AddForce(new Vector2(-verticalForce, horizontalForce), ForceMode2D.Impulse);
+    rb.AddForce(new Vector2(-horizontalForce, verticalForce)*boostMultiplier, ForceMode2D.Impulse);
     onFloor=false;
     sr.flipX = false;
                 sr.color=Color.yellow;
@@ -46,8 +45,7 @@ public class PlayerMovement : MonoBehaviour
     if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)){
       if(extraJump>0) {
         if(onFloor==false) rb.velocity=rb.velocity/2;
-    Debug.Log("go right "+extraJump);
-    rb.AddForce(sideBoost, ForceMode2D.Impulse);
+    rb.AddForce(sideBoost*boostMultiplier, ForceMode2D.Impulse);
     onFloor=false;
     sr.flipX = true;
                 sr.color=Color.yellow;
@@ -59,8 +57,7 @@ public class PlayerMovement : MonoBehaviour
     if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)){
       if(extraJump>0) {
         if(onFloor==false) rb.velocity=rb.velocity/2;
-    Debug.Log("jump "+extraJump);
-    rb.AddForce(jumpBoost, ForceMode2D.Impulse);
+    rb.AddForce(jumpBoost*boostMultiplier, ForceMode2D.Impulse);
     onFloor=false;
                 sr.color=Color.yellow;
                 extraJump--;
@@ -69,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     if(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)){
-    Debug.Log("go down "+extraJump);
+
  }
     }
 
@@ -80,5 +77,11 @@ public class PlayerMovement : MonoBehaviour
             sr.color = Color.white;
       }
    }
+
+public void ExtraJumpChange(int amount){
+    extraJumpValue=amount;
+    extraJump=extraJumpValue;
+    sr.color = Color.white;
+}
 
 }
