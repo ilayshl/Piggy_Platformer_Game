@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public bool onFloor;
+    public float sizeMultiplier;
+    public int extraJumpValue;
 
     [SerializeField] int moveSpeed = 10;
     [SerializeField] float verticalForce = 20;
@@ -14,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     SpriteRenderer sr;
     Vector2 sideBoost;
     Vector2 jumpBoost;
+    int extraJump;
 
     void Start()
     {
@@ -21,42 +24,50 @@ public class PlayerMovement : MonoBehaviour
        sr = gameObject.GetComponent<SpriteRenderer>();
        sideBoost = new Vector2(verticalForce, horizontalForce);
        jumpBoost = new Vector2(0, jumpForce);
+        extraJump=extraJumpValue;
     }
 
     //idea: what if it's a sliding platform and the player can hop small distances (go side but a bit up) and slide
     void Update()
     {
-    if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)){
-      if(onFloor){
-    Debug.Log("go left");
+    if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)){
+      if(extraJump>0){
+        if(onFloor==false) rb.velocity=rb.velocity/2;
+    Debug.Log("go left "+extraJump);
     rb.AddForce(new Vector2(-verticalForce, horizontalForce), ForceMode2D.Impulse);
     onFloor=false;
     sr.flipX = false;
+                extraJump--;
       }
  }
-    if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)){
-      if(onFloor){
-    Debug.Log("go right");
+    if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)){
+      if(extraJump>0) {
+        if(onFloor==false) rb.velocity=rb.velocity/2;
+    Debug.Log("go right "+extraJump);
     rb.AddForce(sideBoost, ForceMode2D.Impulse);
     onFloor=false;
     sr.flipX = true;
+                extraJump--;
             }
  }
-    if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow)){
-      if(onFloor){
-    Debug.Log("jump");
+    if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)){
+      if(extraJump>0) {
+        if(onFloor==false) rb.velocity=rb.velocity/2;
+    Debug.Log("jump "+extraJump);
     rb.AddForce(jumpBoost, ForceMode2D.Impulse);
     onFloor=false;
-          }
+                extraJump--;
+            }
  }
-    if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)){
-    Debug.Log("go down");
+    if(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)){
+    Debug.Log("go down "+extraJump);
  }
     }
 
    private void OnCollisionEnter2D(Collision2D other) {
       if(other.gameObject.CompareTag("Ground") && onFloor==false){
          onFloor=true;
+         extraJump=extraJumpValue;
       }
    }
 
