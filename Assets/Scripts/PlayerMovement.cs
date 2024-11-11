@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float verticalForce = 25;
     [SerializeField] float horizontalForce = 30;
     [SerializeField] float jumpForce = 50;
+    [SerializeField] Collider2D playerCollider;
     Rigidbody2D rb;
     SpriteRenderer sr;
     Vector2 sideBoost;
@@ -65,18 +66,18 @@ public class PlayerMovement : MonoBehaviour
                 sr.color=Color.red;
             }
         }
-    if(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)){
-
+    if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)){
+            if(onFloor==false && rb.velocity.y>0) {
+            rb.velocity=new Vector2(rb.velocity.x, rb.velocity.y/2);
+            }
  }
     }
 
-   private void OnCollisionEnter2D(Collision2D other) {
-      if(other.gameObject.CompareTag("Ground") && onFloor==false){
-         onFloor=true;
-         extraJump=extraJumpValue;
-            sr.color = Color.white;
-      }
-   }
+   public void ResetJump() {
+        onFloor=true;
+        extraJump=extraJumpValue;
+        sr.color=Color.white;
+    }
 
 public void ExtraJumpChange(int amount){
     extraJumpValue=amount;

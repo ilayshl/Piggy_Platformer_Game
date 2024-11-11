@@ -25,7 +25,7 @@ public class PickupSpawner : MonoBehaviour
     }
 
     void SpawnPickup() {
-        Instantiate(pickupList[Random.Range(0, pickupList.Length)], new Vector2(Random.Range(-8, 8), 9), new Quaternion());
+        Instantiate(pickupList[Random.Range(0, pickupList.Length)], new Vector2(Random.Range(-8, 8), 6), Quaternion.identity);
     }
 
     void SetRandomizer() {

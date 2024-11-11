@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Grow
   - Shrink
+  - Extra Jump
   layers:
   - Default
   - TransparentFX
