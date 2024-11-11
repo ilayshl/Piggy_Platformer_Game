@@ -26,30 +26,27 @@ public class SizeChanger : MonoBehaviour
             Destroy(collision.gameObject);
             if(pickupLimiter<5) {
                 pickupLimiter++;
-                Debug.Log("increase "+pickupLimiter);
                 ChangeSize(playerSizeChange);
                 player.boostMultiplier/=1.1f;
                 floatingText.SetText("+SIZE", collision.transform.position);
             } else {
-                Debug.Log("can't grow more");
+                floatingText.SetText("Can't grow!", collision.transform.position);
             }
         } else if(collision.gameObject.CompareTag("Shrink")) {
             Destroy(collision.gameObject);
             if(pickupLimiter>-5) {
                 pickupLimiter--;
-                Debug.Log("reduce "+pickupLimiter);
                 ChangeSize(-playerSizeChange);
                 player.boostMultiplier*=1.1f;
                 floatingText.SetText("-SIZE", collision.transform.position);
             } else {
-                Debug.Log("can't shrink more");
+                floatingText.SetText("Can't shrink!", collision.transform.position);
             }
         }
             else if(collision.gameObject.CompareTag("Extra Jump")) {
                 Destroy(collision.gameObject);
-                    player.ExtraJumpChange(player.extraJumpValue+1);
+                    player.SetJumpValue(player.extraJumpValue+1);
             floatingText.SetText("+JUMP", collision.transform.position);
-            Debug.Log("+1 extraJumpValue, currently "+player.extraJumpValue);
             }
     }
 

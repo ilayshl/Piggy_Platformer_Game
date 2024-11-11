@@ -79,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
         sr.color=Color.white;
     }
 
-public void ExtraJumpChange(int amount){
+public void SetJumpValue(int amount){
     extraJumpValue=amount;
     extraJump=extraJumpValue;
     sr.color = Color.white;
