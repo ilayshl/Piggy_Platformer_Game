@@ -7,33 +7,34 @@ public class PlayerMovement : MonoBehaviour
     public bool onFloor;
     public float boostMultiplier=1;
     public int extraJumpValue;
-    public bool gamePaused = false;
+    public bool gamePaused = true;
 
     [SerializeField] int moveSpeed = 10;
     [SerializeField] float verticalForce = 25;
     [SerializeField] float horizontalForce = 30;
     [SerializeField] float jumpForce = 50;
-    [SerializeField] Collider2D playerCollider;
     Rigidbody2D rb;
     SpriteRenderer sr;
+    PlayerSFX playerSFX;
     Vector2 sideBoost;
     Vector2 jumpBoost;
     int extraJump;
 
     void Start()
     {
+        gamePaused = true;
        rb = gameObject.GetComponent<Rigidbody2D>();
        sr = gameObject.GetComponent<SpriteRenderer>();
+        playerSFX= gameObject.GetComponent<PlayerSFX>();
        sideBoost = new Vector2(horizontalForce, verticalForce);
        jumpBoost = new Vector2(0, jumpForce);
         extraJump=extraJumpValue;
     }
 
-    //idea: what if it's a sliding platform and the player can hop small distances (go side but a bit up) and slide
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.P))gamePaused=!gamePaused;
-        if(gamePaused) return;
+        if(gamePaused){ return; }
     if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)){
       if(extraJump>0){
         if(onFloor==false) rb.velocity=rb.velocity/2;
@@ -41,11 +42,15 @@ public class PlayerMovement : MonoBehaviour
     onFloor=false;
     sr.flipX = false;
                 sr.color=Color.yellow;
+                playerSFX.JumpSound(extraJump);
                 extraJump--;
-            }if(extraJump==0){
-                sr.color = Color.red;
+                if(extraJump==0) {
+                    sr.color=Color.red;
+                }
+            } else {
+                playerSFX.JumpSound(extraJump);
             }
- }
+        }
     if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)){
       if(extraJump>0) {
         if(onFloor==false) rb.velocity=rb.velocity/2;
@@ -53,9 +58,13 @@ public class PlayerMovement : MonoBehaviour
     onFloor=false;
     sr.flipX = true;
                 sr.color=Color.yellow;
+                playerSFX.JumpSound(extraJump);
                 extraJump--;
-            } if(extraJump==0) {
-                sr.color=Color.red;
+                if(extraJump==0) {
+                    sr.color=Color.red;
+                }
+            } else {
+                playerSFX.JumpSound(extraJump);
             }
         }
     if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)){
@@ -64,16 +73,16 @@ public class PlayerMovement : MonoBehaviour
     rb.AddForce(jumpBoost*boostMultiplier, ForceMode2D.Impulse);
     onFloor=false;
                 sr.color=Color.yellow;
+                playerSFX.JumpSound(extraJump);
                 extraJump--;
-            }if(extraJump==0) {
-                sr.color=Color.red;
+                if(extraJump==0) {
+                    sr.color=Color.red;
+                }
+            } else {
+                playerSFX.JumpSound(extraJump);
             }
+            
         }
-    if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)){
-            if(onFloor==false && rb.velocity.y>0) {
-            rb.velocity=new Vector2(rb.velocity.x, rb.velocity.y/2);
-            }
- }
     }
 
    public void ResetJump() {

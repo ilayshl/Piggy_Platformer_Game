@@ -11,6 +11,7 @@ public class SizeChanger : MonoBehaviour
     [SerializeField] TextSpawner floatingText;
     Rigidbody2D rb;
     PlayerMovement player;
+    PlayerSFX playerSFX;
     int pickupLimiter = 0; //-5 to 5
     
 
@@ -18,7 +19,8 @@ public class SizeChanger : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         player = rb.GetComponent<PlayerMovement>();
-        floatingText = player.GetComponent<TextSpawner>();
+        playerSFX = rb.GetComponent<PlayerSFX>();
+        floatingText = GameObject.FindGameObjectWithTag("Spawner").GetComponent<TextSpawner>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
@@ -26,20 +28,20 @@ public class SizeChanger : MonoBehaviour
         if(collision.gameObject.CompareTag("Grow")) {
             Destroy(collision.gameObject);
             if(pickupLimiter<5) {
+                floatingText.SetText("+SIZE", collision.transform.position);
                 pickupLimiter++;
                 ChangeSize(playerSizeChange);
                 player.boostMultiplier/=1.1f;
-                floatingText.SetText("+SIZE", collision.transform.position);
             } else {
                 floatingText.SetText("Can't grow!", collision.transform.position);
             }
         } else if(collision.gameObject.CompareTag("Shrink")) {
             Destroy(collision.gameObject);
             if(pickupLimiter>-5) {
+                floatingText.SetText("-SIZE", collision.transform.position);
                 pickupLimiter--;
                 ChangeSize(-playerSizeChange);
                 player.boostMultiplier*=1.1f;
-                floatingText.SetText("-SIZE", collision.transform.position);
             } else {
                 floatingText.SetText("Can't shrink!", collision.transform.position);
             }
@@ -49,6 +51,7 @@ public class SizeChanger : MonoBehaviour
                     player.SetJumpValue(player.extraJumpValue+1);
             floatingText.SetText("+JUMP", collision.transform.position);
             }
+        playerSFX.PickupSound(collision.gameObject.tag);
     }
 
     void ChangeSize(float multiplier) {

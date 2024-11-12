@@ -16,13 +16,24 @@ public class PickupSpawner : MonoBehaviour
 
     void Update()
     {
-        if(player.gamePaused) return;
+        if(player.gamePaused){ return; }
         timer+=Time.deltaTime;
         if((int)timer%randomizer==0 && (int)timer!=0) {
             SpawnPickup();
             SetRandomizer();
             Debug.Log("randomized for "+randomizer+" seconds.");
             timer=0;
+        }
+
+
+        if(Input.GetKeyDown(KeyCode.Alpha1)) {
+            Instantiate(pickupList[0], new Vector2(Random.Range(-8, 8), 6), Quaternion.identity);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha2)) {
+            Instantiate(pickupList[1], new Vector2(Random.Range(-8, 8), 6), Quaternion.identity);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha3)) {
+            Instantiate(pickupList[2], new Vector2(Random.Range(-8, 8), 6), Quaternion.identity);
         }
     }
 

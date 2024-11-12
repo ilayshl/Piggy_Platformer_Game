@@ -8,6 +8,7 @@ TagManager:
   - Grow
   - Shrink
   - Extra Jump
+  - Spawner
   layers:
   - Default
   - TransparentFX
