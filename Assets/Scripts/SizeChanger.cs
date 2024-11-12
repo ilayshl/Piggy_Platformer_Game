@@ -22,6 +22,7 @@ public class SizeChanger : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
+        if(player.gamePaused) return;
         if(collision.gameObject.CompareTag("Grow")) {
             Destroy(collision.gameObject);
             if(pickupLimiter<5) {

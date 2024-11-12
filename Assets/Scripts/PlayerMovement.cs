@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public bool onFloor;
     public float boostMultiplier=1;
     public int extraJumpValue;
+    public bool gamePaused = false;
 
     [SerializeField] int moveSpeed = 10;
     [SerializeField] float verticalForce = 25;
@@ -31,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
     //idea: what if it's a sliding platform and the player can hop small distances (go side but a bit up) and slide
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.P))gamePaused=!gamePaused;
+        if(gamePaused) return;
     if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)){
       if(extraJump>0){
         if(onFloor==false) rb.velocity=rb.velocity/2;

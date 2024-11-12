@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class PickupSpawner : MonoBehaviour
 {
+    [SerializeField] GameObject[] pickupList;
     float timer = 0;
     int randomizer;
-    [SerializeField] GameObject[] pickupList;
+    PlayerMovement player;
     void Start()
     {
         SetRandomizer();
+        player=GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if(player.gamePaused) return;
         timer+=Time.deltaTime;
         if((int)timer%randomizer==0 && (int)timer!=0) {
             SpawnPickup();
