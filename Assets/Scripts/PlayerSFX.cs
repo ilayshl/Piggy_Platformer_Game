@@ -19,6 +19,7 @@ public class PlayerSFX : MonoBehaviour
     }
 
     public void JumpSound(int jumps) {
+        audioSource.pitch=Random.Range(0.8f, 1.2f);
         if(jumps==0) {
             audioSource.PlayOneShot(lastJumpSound);
         } else {
@@ -34,6 +35,7 @@ public class PlayerSFX : MonoBehaviour
     }
 
     public void PickupSound(string tag) {
+        audioSource.pitch=1;
         if(tag == "Grow") {
             audioSource.PlayOneShot(pickupSounds[0]);
         }
