@@ -8,8 +8,6 @@ public class PlayerMovement : MonoBehaviour
     public float boostMultiplier=1;
     public int extraJumpValue;
     public bool gamePaused = true;
-
-    [SerializeField] int moveSpeed = 10;
     [SerializeField] float verticalForce = 25;
     [SerializeField] float horizontalForce = 30;
     [SerializeField] float jumpForce = 50;

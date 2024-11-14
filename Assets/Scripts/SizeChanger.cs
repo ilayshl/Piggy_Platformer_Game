@@ -8,10 +8,10 @@ public class SizeChanger : MonoBehaviour
     public float sizeMultiplier;
 
     [SerializeField] float playerSizeChange = 0.1f;
-    [SerializeField] TextSpawner floatingText;
     Rigidbody2D rb;
     PlayerMovement player;
     PlayerSFX playerSFX;
+    TextSpawner floatingText;
     int pickupLimiter = 0; //-5 to 5
     
 
@@ -54,8 +54,9 @@ public class SizeChanger : MonoBehaviour
         playerSFX.PickupSound(collision.gameObject.tag);
     }
 
+
+
     void ChangeSize(float multiplier) {
         gameObject.transform.localScale+=new Vector3(multiplier, multiplier, multiplier);
     }
-
 }

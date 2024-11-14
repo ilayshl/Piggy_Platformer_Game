@@ -11,6 +11,7 @@ public class PlayerSFX : MonoBehaviour
     [SerializeField] AudioClip[] jumpSounds;
     [SerializeField] AudioClip[] playerJumpSounds;
     [SerializeField] AudioClip[] pickupSounds;
+    [SerializeField] AudioClip obstaclesSound;
     PlayerMovement player;
     // Start is called before the first frame update
     void Start()
@@ -47,6 +48,8 @@ public class PlayerSFX : MonoBehaviour
         }
         else if (tag =="Extra Time") {
             audioSource.PlayOneShot(pickupSounds[3]);
+        }else if(tag =="Obstacle") {
+            audioSource.PlayOneShot(obstaclesSound);
         }
     }
 }
