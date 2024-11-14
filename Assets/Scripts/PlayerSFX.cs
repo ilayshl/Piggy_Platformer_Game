@@ -13,7 +13,6 @@ public class PlayerSFX : MonoBehaviour
     [SerializeField] AudioClip[] pickupSounds;
     [SerializeField] AudioClip obstaclesSound;
     PlayerMovement player;
-    // Start is called before the first frame update
     void Start()
     {
         player = GetComponent<PlayerMovement>();

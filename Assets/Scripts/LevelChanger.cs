@@ -32,7 +32,6 @@ private void Update() {
             if(other.transform.position.x>transform.position.x){
                 transform.position = new Vector3(pos.x+18, pos.y, pos.z);
                 pos = transform.position;
-                Debug.Log("gone right, new pos: "+pos);
                 gameCamera.transform.position = new Vector3(gameCamera.transform.position.x+18, gameCamera.transform.position.y, gameCamera.transform.position.z);
                 onCooldown=true;
                 cooldownTimer=0;
@@ -40,7 +39,6 @@ private void Update() {
             }else{
                  transform.position = new Vector3(pos.x-18, pos.y, pos.z);
                 pos = transform.position;
-                Debug.Log("gone left, new pos: "+pos);
                 gameCamera.transform.position = new Vector3(gameCamera.transform.position.x-18, gameCamera.transform.position.y, gameCamera.transform.position.z);
                 onCooldown=true;
                 cooldownTimer=0;
@@ -49,9 +47,5 @@ private void Update() {
         }
     }
     
-    /*private void OnTriggerExit2D(Collider2D other) {
-        if(onCooldown){onCooldown=false;
-        Debug.Log("reset cooldown");}
-    }*/
 }
     

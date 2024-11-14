@@ -6,7 +6,6 @@ public class PlayerCollision : MonoBehaviour
 {
     PlayerMovement player;
     PlayerSFX playerSFX;
-    // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
