@@ -9,6 +9,7 @@ TagManager:
   - Shrink
   - Extra Jump
   - Spawner
+  - Level Changer
   layers:
   - Default
   - TransparentFX

@@ -13,6 +13,7 @@ public class PlayButton : MonoBehaviour
     void Start()
     {
         player=GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        gameCamera.transform.position = new Vector3(0, 10, -10);
     }
 
     private void Update() {
