@@ -13,7 +13,7 @@ public class SizeChanger : MonoBehaviour
     PlayerSFX playerSFX;
     TextSpawner floatingText;
     int pickupLimiter = 0; //-5 to 5
-    
+
 
     void Start()
     {
@@ -23,40 +23,52 @@ public class SizeChanger : MonoBehaviour
         floatingText = GameObject.FindGameObjectWithTag("Spawner").GetComponent<TextSpawner>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if(player.gamePaused) return;
-        if(collision.gameObject.CompareTag("Grow")) {
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (player.gamePaused) return;
+        if (collision.gameObject.CompareTag("Grow"))
+        {
             Destroy(collision.gameObject);
-            if(pickupLimiter<5) {
+            if (pickupLimiter < 5)
+            {
                 floatingText.SetText("+SIZE", collision.transform.position);
                 pickupLimiter++;
                 ChangeSize(playerSizeChange);
-                player.boostMultiplier/=1.1f;
-            } else {
+                player.boostMultiplier /= 1.1f;
+            }
+            else
+            {
                 floatingText.SetText("Can't grow!", collision.transform.position);
             }
-        } else if(collision.gameObject.CompareTag("Shrink")) {
+        }
+        else if (collision.gameObject.CompareTag("Shrink"))
+        {
             Destroy(collision.gameObject);
-            if(pickupLimiter>-5) {
+            if (pickupLimiter > -5)
+            {
                 floatingText.SetText("-SIZE", collision.transform.position);
                 pickupLimiter--;
                 ChangeSize(-playerSizeChange);
-                player.boostMultiplier*=1.1f;
-            } else {
+                player.boostMultiplier *= 1.1f;
+            }
+            else
+            {
                 floatingText.SetText("Can't shrink!", collision.transform.position);
             }
         }
-            else if(collision.gameObject.CompareTag("Extra Jump")) {
-                Destroy(collision.gameObject);
-                    player.SetJumpValue(player.extraJumpValue+1);
+        else if (collision.gameObject.CompareTag("Extra Jump"))
+        {
+            Destroy(collision.gameObject);
+            player.SetJumpValue(player.extraJumpValue + 1);
             floatingText.SetText("+JUMP", collision.transform.position);
-            }
+        }
         playerSFX.PickupSound(collision.gameObject.tag);
     }
 
 
 
-    void ChangeSize(float multiplier) {
-        gameObject.transform.localScale+=new Vector3(multiplier, multiplier, multiplier);
+    void ChangeSize(float multiplier)
+    {
+        gameObject.transform.localScale += new Vector3(multiplier, multiplier, multiplier);
     }
 }
