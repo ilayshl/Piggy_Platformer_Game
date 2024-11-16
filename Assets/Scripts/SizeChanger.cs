@@ -17,15 +17,17 @@ public class SizeChanger : MonoBehaviour
 
     void Start()
     {
-        rb = gameObject.GetComponent<Rigidbody2D>();
-        player = rb.GetComponent<PlayerMovement>();
-        playerSFX = rb.GetComponent<PlayerSFX>();
+        rb = GetComponent<Rigidbody2D>();
+        player = GetComponent<PlayerMovement>();
+        playerSFX = GetComponent<PlayerSFX>();
         floatingText = GameObject.FindGameObjectWithTag("Spawner").GetComponent<TextSpawner>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (player.gamePaused) return;
+        if(gameObject.CompareTag("Player"))
+            {
         if (collision.gameObject.CompareTag("Grow"))
         {
             Destroy(collision.gameObject);
@@ -63,6 +65,7 @@ public class SizeChanger : MonoBehaviour
             floatingText.SetText("+JUMP", collision.transform.position);
         }
         playerSFX.PickupSound(collision.gameObject.tag);
+        }
     }
 
 

@@ -10,22 +10,12 @@ public class LevelChanger : MonoBehaviour
     PickupSpawner pickupSpawner;
     Vector3 pos;
     bool onCooldown=false;
-    float cooldownTimer=0;
 
     void Start()
     {
         pos = transform.position;
         pickupSpawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<PickupSpawner>();
     }
-
-private void Update() {
-    if(onCooldown){
-        cooldownTimer+=Time.deltaTime;
-        if((int)cooldownTimer==2){
-            onCooldown=false;
-        }
-    }
-}
     private void OnTriggerEnter2D(Collider2D other) {
     if(other.gameObject.CompareTag("Player")){
         if(onCooldown){return;}
@@ -34,18 +24,21 @@ private void Update() {
                 pos = transform.position;
                 gameCamera.transform.position = new Vector3(gameCamera.transform.position.x+18, gameCamera.transform.position.y, gameCamera.transform.position.z);
                 onCooldown=true;
-                cooldownTimer=0;
+                Invoke("FinishCooldown", 0.5f);
                 pickupSpawner.levelCounter++;
             }else{
                  transform.position = new Vector3(pos.x-18, pos.y, pos.z);
                 pos = transform.position;
                 gameCamera.transform.position = new Vector3(gameCamera.transform.position.x-18, gameCamera.transform.position.y, gameCamera.transform.position.z);
                 onCooldown=true;
-                cooldownTimer=0;
+                Invoke("FinishCooldown", 0.5f);
                 pickupSpawner.levelCounter--;
             }
         }
     }
-    
+
+    void FinishCooldown() {
+        onCooldown=false;
+    }
 }
     
