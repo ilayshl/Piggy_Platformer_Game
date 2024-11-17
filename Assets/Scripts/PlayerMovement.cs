@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -14,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer sr;
     PlayerSFX playerSFX;
+    ParticleSpawner particleSpawner;
     Vector2 sideBoost;
     Vector2 jumpBoost;
     int extraJump;
@@ -24,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
        rb = gameObject.GetComponent<Rigidbody2D>();
        sr = gameObject.GetComponent<SpriteRenderer>();
         playerSFX= gameObject.GetComponent<PlayerSFX>();
+        particleSpawner=GameObject.FindGameObjectWithTag("Spawner").GetComponent<ParticleSpawner>();
        sideBoost = new Vector2(horizontalForce, verticalForce);
        jumpBoost = new Vector2(0, jumpForce);
         extraJump=extraJumpValue;
@@ -73,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
                 sr.color=Color.yellow;
                 playerSFX.JumpSound(extraJump);
                 extraJump--;
+                particleSpawner.JumpParticles(new Vector2(transform.position.x, GetComponent<CapsuleCollider2D>().bounds.min.y), transform.localScale);
                 if(extraJump==0) {
                     sr.color=Color.red;
                 }

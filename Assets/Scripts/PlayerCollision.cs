@@ -20,7 +20,7 @@ public class PlayerCollision : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Obstacle"))
         {
-            if (GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().localScale.x >= 1.2f)
+            if (player.GetComponent<Transform>().localScale.x >= 1.2f)
             {
                 Destroy(other.gameObject);
             }
