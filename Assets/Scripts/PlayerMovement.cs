@@ -45,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
                 sr.color=Color.yellow;
                 playerSFX.JumpSound(extraJump);
                 extraJump--;
+                particleSpawner.LeftDashParticles(new Vector2(GetComponent<CapsuleCollider2D>().bounds.max.x, transform.position.y), transform.localScale);
                 if(extraJump==0) {
                     sr.color=Color.red;
                 }
@@ -61,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
                 sr.color=Color.yellow;
                 playerSFX.JumpSound(extraJump);
                 extraJump--;
+                particleSpawner.RightDashParticles(new Vector2(GetComponent<CapsuleCollider2D>().bounds.min.x, transform.position.y), transform.localScale);
                 if(extraJump==0) {
                     sr.color=Color.red;
                 }

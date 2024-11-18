@@ -9318,8 +9318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpParticles: {fileID: 2845080677245250493, guid: 49999fa3f41297942ac340c097815920, type: 3}
-  leftDashParticles: {fileID: 0}
-  rightDashParticles: {fileID: 0}
+  dashParticles: {fileID: 2845080677245250493, guid: 905ddfff5e71d1742b355711368e1719, type: 3}
 --- !u!1001 &1495160858
 PrefabInstance:
   m_ObjectHideFlags: 0
